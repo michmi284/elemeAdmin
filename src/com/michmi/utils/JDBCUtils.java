@@ -10,49 +10,67 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-public class JDBCUtils {
+public class JDBCUtils
+{
     private static DataSource ds;
 
-    static {
+    static
+    {
         Properties properties = new Properties();
-        try {
+        try
+        {
             properties.load(JDBCUtils.class.getClassLoader().getResourceAsStream("druid.properties"));
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
-        try {
+        try
+        {
             ds = DruidDataSourceFactory.createDataSource(properties);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     // 连接
-    public  static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException
+    {
         return ds.getConnection();
     }
+
     // close
-    public static void close(ResultSet rs, Statement stmt, Connection conn){
+    public static void close(ResultSet rs, Statement stmt, Connection conn)
+    {
 
-        if (stmt != null) {
-            try {
+        if (stmt != null)
+        {
+            try
+            {
                 stmt.close();
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 e.printStackTrace();
             }
         }
 
-        if (conn != null) {
-            try {
+        if (conn != null)
+        {
+            try
+            {
                 conn.close();
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 e.printStackTrace();
             }
         }
-        if (rs != null) {
-            try {
+        if (rs != null)
+        {
+            try
+            {
                 rs.close();
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 e.printStackTrace();
             }
         }
@@ -60,16 +78,18 @@ public class JDBCUtils {
 
     }
 
-    public static void close(Statement stmt, Connection conn){
+    public static void close(Statement stmt, Connection conn)
+    {
 
-      close(null, stmt, conn);
+        close(null, stmt, conn);
 
     }
 
     //
 
 
-    public static DataSource getDs() {
+    public static DataSource getDs()
+    {
         return ds;
     }
 }

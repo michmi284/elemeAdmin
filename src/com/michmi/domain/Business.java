@@ -8,13 +8,13 @@ public class Business
     private String businessAddress;
     private String businessExplain;
     private Double startPrice;
-    private String deliveryPrice;
+    private Double deliveryPrice;
 
     public Business()
     {
     }
 
-    public Business(Integer businessId, String password, String businessName, String businessAddress, String businessExplain, Double startPrice, String deliveryPrice)
+    public Business(Integer businessId, String password, String businessName, String businessAddress, String businessExplain, Double startPrice, Double deliveryPrice)
     {
         this.businessId = businessId;
         this.password = password;
@@ -85,12 +85,12 @@ public class Business
         this.startPrice = startPrice;
     }
 
-    public String getDeliveryPrice()
+    public Double getDeliveryPrice()
     {
         return deliveryPrice;
     }
 
-    public void setDeliveryPrice(String deliveryPrice)
+    public void setDeliveryPrice(Double deliveryPrice)
     {
         this.deliveryPrice = deliveryPrice;
     }
@@ -105,7 +105,7 @@ public class Business
                 ", businessAddress='" + businessAddress + '\'' +
                 ", businessExplain='" + businessExplain + '\'' +
                 ", startPrice=" + startPrice +
-                ", deliveryPrice='" + deliveryPrice + '\'' +
+                ", deliveryPrice=" + deliveryPrice +
                 '}';
     }
 }

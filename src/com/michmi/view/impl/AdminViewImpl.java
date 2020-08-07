@@ -7,11 +7,13 @@ import com.michmi.view.AdminView;
 
 import java.util.Scanner;
 
-public class AdminViewImpl implements AdminView {
-    private  Scanner input = new Scanner(System.in);
+public class AdminViewImpl implements AdminView
+{
+    private Scanner input = new Scanner(System.in);
 
     @Override
-    public Admin login() {
+    public Admin login()
+    {
         System.out.println("请输入管理员的用户名：");
         String adminName = input.next();
         System.out.println("请输入管理员的密码：");

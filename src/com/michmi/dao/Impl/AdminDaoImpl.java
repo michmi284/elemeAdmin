@@ -6,31 +6,37 @@ import com.michmi.utils.JDBCUtils;
 
 import java.sql.*;
 
-public class AdminDaoImpl implements AdminDao {
-    private  Connection conn =null;
-    private PreparedStatement pstmt =null;
-    private ResultSet rs =null;
+public class AdminDaoImpl implements AdminDao
+{
+    private Connection conn = null;
+    private PreparedStatement pstmt = null;
+    private ResultSet rs = null;
 
 
     @Override
-    public Admin getAdminByNameByPass(String adminName, String password) {
+    public Admin getAdminByNameByPass(String adminName, String password)
+    {
         Admin admin = null;
         String sql = "select * from admin where adminName = ? and password = ?";
-        try{
+        try
+        {
             conn = JDBCUtils.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, adminName);
             pstmt.setString(2, password);
             rs = pstmt.executeQuery();
-            while (rs.next()){
+            while (rs.next())
+            {
                 admin = new Admin();
                 admin.setAdminId(rs.getInt("adminId"));
                 admin.setAdminName(rs.getString("adminName"));
                 admin.setPassword(rs.getString("password"));
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
-        }finally {
+        } finally
+        {
             JDBCUtils.close(rs, pstmt, conn);
         }
 

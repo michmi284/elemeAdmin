@@ -9,11 +9,15 @@ import com.michmi.view.impl.BusinessViewImpl;
 import java.util.Scanner;
 
 
-public class ElmAdmin {
-    public static void main(String[] args) {
+public class ElmAdmin
+{
+    public static void main(String[] args)
+    {
         work();
     }
-    public static  void  work(){
+
+    public static void work()
+    {
         Scanner input = new Scanner(System.in);
 
         System.out.println("-----------------------------------------------------------");
@@ -25,17 +29,20 @@ public class ElmAdmin {
         Admin admin = adminView.login();
 
         BusinessView businessView = new BusinessViewImpl();
-        if (admin!=null){
+        if (admin != null)
+        {
             int menu = 0;
             System.out.println("~欢迎来到饿了么商家管理系统~");
-            while (menu!= 5){
+            while (menu != 5)
+            {
 
                 // 创建一个菜单
                 System.out.println("========= 1.所有商家列表=2.搜索商家=3.新建商家=4.删除商家=5.退出系统 =========");
                 System.out.println("请选择相应的菜单编号");
                 menu = input.nextInt();
 
-                switch (menu){
+                switch (menu)
+                {
                     case 1:
                         businessView.listBusinessAll();
                         break;
@@ -58,7 +65,8 @@ public class ElmAdmin {
 
             }
 
-        }else {
+        } else
+        {
             System.out.println("账号或密码有误请重新输入");
         }
 
