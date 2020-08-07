@@ -7,7 +7,7 @@ import com.michmi.domain.Admin;
 public class TestAdmin {
     public static void main(String[] args) {
         AdminDao adminDao = new AdminDaoImpl();
-        Admin admin = adminDao.getAdminByNameByPass("zhangsan", "123");
+        Admin admin = adminDao.getAdminByNameByPass("张三", "123");
         System.out.println(admin);
     }
 }

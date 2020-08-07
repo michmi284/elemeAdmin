@@ -11,43 +11,46 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusinessDaoImpl implements BusinessDao
-{
-
-    private Connection conn = null;
-    private PreparedStatement pstmt = null;
-    private ResultSet rs = null;
+public class BusinessDaoImpl implements BusinessDao {
+    private Connection conn =null;
+    private PreparedStatement pstmt =null;
+    private ResultSet rs =null;
 
     @Override
-    public List<Business> listBusiness(String businessName, String businessAddress)
-    {
-        ArrayList<>list= new ArrayList<>();
+    public List<Business> listBusiness(String businessName, String businessAddress) {
+        List<Business> list = new ArrayList<>();
         StringBuffer sql = new StringBuffer("select * from business where 1=1");
-        if (businessName!=null && businessName.equals(""))
-        {
-            //传入了商家名
-            sql.append("and businessName like '%").append(businessName).append("%'");
+        if (businessName != null && !businessName.equals("")){
+            // 传入了商家名
+            sql.append(" and businessName like '%").append(businessName).append("%' ");
             System.out.println(sql);
         }
-
+        if (businessAddress != null && !businessAddress.equals("")){
+            // 传入了商家名
+            sql.append(" and businessAddress like '%").append(businessAddress).append("%' ");
+            System.out.println(sql);
+        }
         try{
             conn = JDBCUtils.getConnection();
             pstmt = conn.prepareStatement(sql.toString());
             rs = pstmt.executeQuery();
-            while(rs.next()){
-                Business business = new Business;
+            while (rs.next()){
+                Business business = new Business();
                 business.setBusinessId(rs.getInt("businessId"));
                 business.setPassword(rs.getString("password"));
-            }
+                business.setBusinessName(rs.getString("businessName"));
+                // TODO
+                list.add(business);
 
-        } catch (SQLException e)
-        {
+
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally
-        {
+        }finally {
             JDBCUtils.close(rs,pstmt,conn);
         }
 
-        return null;
+
+        return list;
     }
 }
