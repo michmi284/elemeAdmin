@@ -74,20 +74,14 @@ public class JDBCUtils
                 e.printStackTrace();
             }
         }
-
-
     }
 
     public static void close(Statement stmt, Connection conn)
     {
-
         close(null, stmt, conn);
-
     }
 
     //
-
-
     public static DataSource getDs()
     {
         return ds;

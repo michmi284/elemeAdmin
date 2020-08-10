@@ -1,6 +1,7 @@
 package com.michmi.dao.Impl;
 
 import com.michmi.dao.BusinessDao;
+import com.michmi.domain.Admin;
 import com.michmi.domain.Business;
 import com.michmi.utils.JDBCUtils;
 
@@ -91,6 +92,36 @@ public class BusinessDaoImpl implements BusinessDao
             JDBCUtils.close(rs, pstmt, conn);
         }
         return businessId;
+    }
+
+    @Override
+    public Business getBusinessByNameByPass(Integer businessId, String password)
+    {
+
+        Business business = null;
+        String sql = "select * from business where businessId = ? and password = ?";
+        try
+        {
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, businessId);
+            pstmt.setString(2, password);
+            rs = pstmt.executeQuery();
+            while (rs.next())
+            {
+                business = new Business();
+                business.setBusinessId(rs.getInt("businessId"));
+                business.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+
+        return business;
     }
 }
 
