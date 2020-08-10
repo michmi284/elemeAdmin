@@ -119,12 +119,14 @@ public class BusinessDaoImpl implements BusinessDao
     }
 
     @Override
-    public int removeBusiness(int businessId) {
+    public int removeBusiness(int businessId)
+    {
         // 删除的时候注意需要开启事物
         int result = 0;
         String sql = "delete from business where businessId = ?";
 
-        try{
+        try
+        {
             conn = JDBCUtils.getConnection();
             // 手动开启事物
             conn.setAutoCommit(false);
@@ -133,18 +135,22 @@ public class BusinessDaoImpl implements BusinessDao
             result = pstmt.executeUpdate();
             conn.commit();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             // 进入了异常的代码区要给result置为 0
             result = 0;
-            try {
+            try
+            {
                 conn.rollback();
-            }catch (SQLException e1){
+            } catch (SQLException e1)
+            {
                 e1.printStackTrace();
             }
             e.printStackTrace();
 
 
-        }finally {
+        } finally
+        {
             JDBCUtils.close(rs, pstmt, conn);
         }
 
@@ -152,15 +158,18 @@ public class BusinessDaoImpl implements BusinessDao
     }
 
     @Override
-    public Business getBusinessByBusinessId(Integer businessId) {
+    public Business getBusinessByBusinessId(Integer businessId)
+    {
         Business business = null;
         String sql = "select * from business where businessId = ? ";
-        try{
+        try
+        {
             conn = JDBCUtils.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, businessId);
             rs = pstmt.executeQuery();
-            while (rs.next()){
+            while (rs.next())
+            {
                 business = new Business();
                 business.setBusinessId(rs.getInt("businessId"));
                 business.setPassword(rs.getString("password"));
@@ -171,9 +180,11 @@ public class BusinessDaoImpl implements BusinessDao
                 business.setDeliveryPrice(rs.getDouble("deliveryPrice"));
 
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
-        }finally {
+        } finally
+        {
             JDBCUtils.close(rs, pstmt, conn);
         }
 
@@ -184,10 +195,9 @@ public class BusinessDaoImpl implements BusinessDao
     public int updateBusiness(Business business)
     {
         int result = 0;
-        String sql = "update business set businessName = ?, " +
-                "businessAddress =?,businessExplain=?" +
-                ",starPrice=?,deliveryPrice=? where businessId = ? ";
-        try{
+        String sql = "update business set businessName = ?, businessAddress =?,businessExplain=?,starPrice=?,deliveryPrice=? where businessId = ? ";
+        try
+        {
             conn = JDBCUtils.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, business.getBusinessName());
@@ -198,9 +208,11 @@ public class BusinessDaoImpl implements BusinessDao
             pstmt.setInt(6, business.getBusinessId());
             result = pstmt.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
-        }finally {
+        } finally
+        {
             JDBCUtils.close(rs, pstmt, conn);
         }
         return result;
