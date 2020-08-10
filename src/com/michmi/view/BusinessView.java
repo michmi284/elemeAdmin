@@ -17,5 +17,4 @@ public interface BusinessView
 
     public void updateBusiness(Integer businessId);
 
-
 }
