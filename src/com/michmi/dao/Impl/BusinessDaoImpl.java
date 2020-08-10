@@ -1,7 +1,6 @@
 package com.michmi.dao.Impl;
 
 import com.michmi.dao.BusinessDao;
-import com.michmi.domain.Admin;
 import com.michmi.domain.Business;
 import com.michmi.utils.JDBCUtils;
 
@@ -49,8 +48,6 @@ public class BusinessDaoImpl implements BusinessDao
                 business.setStartPrice(rs.getDouble("starPrice"));
                 business.setDeliveryPrice(rs.getDouble("deliveryPrice"));
                 list.add(business);
-
-
             }
         } catch (SQLException e)
         {
@@ -59,8 +56,6 @@ public class BusinessDaoImpl implements BusinessDao
         {
             JDBCUtils.close(rs, pstmt, conn);
         }
-
-
         return list;
     }
 
@@ -120,8 +115,95 @@ public class BusinessDaoImpl implements BusinessDao
         {
             JDBCUtils.close(rs, pstmt, conn);
         }
+        return business;
+    }
+
+    @Override
+    public int removeBusiness(int businessId) {
+        // 删除的时候注意需要开启事物
+        int result = 0;
+        String sql = "delete from business where businessId = ?";
+
+        try{
+            conn = JDBCUtils.getConnection();
+            // 手动开启事物
+            conn.setAutoCommit(false);
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, businessId);
+            result = pstmt.executeUpdate();
+            conn.commit();
+
+        } catch (SQLException e) {
+            // 进入了异常的代码区要给result置为 0
+            result = 0;
+            try {
+                conn.rollback();
+            }catch (SQLException e1){
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+
+
+        }finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+
+        return result;
+    }
+
+    @Override
+    public Business getBusinessByBusinessId(Integer businessId) {
+        Business business = null;
+        String sql = "select * from business where businessId = ? ";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, businessId);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                business = new Business();
+                business.setBusinessId(rs.getInt("businessId"));
+                business.setPassword(rs.getString("password"));
+                business.setBusinessName(rs.getString("businessName"));
+                business.setBusinessAddress(rs.getString("businessAddress"));
+                business.setBusinessExplain(rs.getString("businessExplain"));
+                business.setStartPrice(rs.getDouble("starPrice"));
+                business.setDeliveryPrice(rs.getDouble("deliveryPrice"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
 
         return business;
+    }
+
+    @Override
+    public int updateBusiness(Business business)
+    {
+        int result = 0;
+        String sql = "update business set businessName = ?, " +
+                "businessAddress =?,businessExplain=?" +
+                ",starPrice=?,deliveryPrice=? where businessId = ? ";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, business.getBusinessName());
+            pstmt.setString(2, business.getBusinessAddress());
+            pstmt.setString(3, business.getBusinessExplain());
+            pstmt.setDouble(4, business.getStartPrice());
+            pstmt.setDouble(5, business.getDeliveryPrice());
+            pstmt.setInt(6, business.getBusinessId());
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+        return result;
     }
 }
 

@@ -24,35 +24,32 @@ public class ElmBusiness
         System.out.println("|\t\t\t\t饿了么控制台版后台管理系统 V1.0\t\t\t\t|");
         System.out.println("-----------------------------------------------------------");
 
-        // 调用商家登录方法
+        // 调用商家登录
         BusinessView businessView = new BusinessViewImpl();
         Business business = businessView.login();
-        if (business != null)
-        {
+
+        if (business!=null){
             int menu = 0;
             System.out.println("~欢迎来到饿了么商家管理系统~");
-            while (menu != 5)
-            {
+            while (menu!= 5){
 
                 // 创建一个菜单
-                System.out.println("=========\t一级菜单:1.查看商家信息\t2.修改商家信息\t3.更改密码\t4.所属商品管理\t5.退出系统\t=========");
+                System.out.println("========= 一级菜单1.查看商家信息=2.修改商家信息=3.更新密码=4.所属商品管理=5.退出系统 =========");
                 System.out.println("请选择相应的菜单编号");
                 menu = input.nextInt();
 
-                switch (menu)
-                {
+                switch (menu){
                     case 1:
-                        businessView.listBusinessAll();
-                        System.out.println("1.查看商家信息");
+                        businessView.showBusiness(business.getBusinessId());
                         break;
                     case 2:
-                        System.out.println("2.修改商家信息");
+                        businessView.updateBusiness(business.getBusinessId());
                         break;
                     case 3:
-                        System.out.println("3.更改密码");
+                        businessView.saveBusiness();
                         break;
                     case 4:
-                        System.out.println("4.所属商品管理");
+                        System.out.println("1.删除商家");
                         break;
                     case 5:
                         System.out.println("========= 欢迎下次光临饿了么系统 =========");
@@ -64,9 +61,12 @@ public class ElmBusiness
 
             }
 
-        } else
-        {
+
+
+
+        }else {
             System.out.println("账号或密码有误请重新输入");
         }
+
     }
 }

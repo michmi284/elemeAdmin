@@ -12,4 +12,10 @@ public interface BusinessView
 
     //添加商家登录验证的方法
     public Business login();
+
+    public void showBusiness(Integer businessId);
+
+    public void updateBusiness(Integer businessId);
+
+
 }

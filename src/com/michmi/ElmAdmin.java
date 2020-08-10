@@ -54,6 +54,7 @@ public class ElmAdmin
                         System.out.println("3.新建商家");
                         break;
                     case 4:
+
                         System.out.println("4.删除商家");
                         break;
                     case 5:

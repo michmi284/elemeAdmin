@@ -28,7 +28,6 @@ public class AdminDaoImpl implements AdminDao
             while (rs.next())
             {
                 admin = new Admin();
-                admin.setAdminId(rs.getInt("adminId"));
                 admin.setAdminName(rs.getString("adminName"));
                 admin.setPassword(rs.getString("password"));
             }
