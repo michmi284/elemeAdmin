@@ -155,4 +155,27 @@ public class BusinessViewImpl implements BusinessView
         else
             System.out.println("修改商家信息失败");
     }
+
+    @Override
+    public void updatePassword(Integer businessId)
+    {
+        BusinessDao dao = new BusinessDaoImpl();
+        Business business = dao.getBusinessByBusinessId(businessId);
+        // 先显示一遍商家信息， 方便用户查看修改
+        String inputStr = "";
+        System.out.println(business);
+        System.out.println("是否修改密码(y/n");
+        inputStr = input.next();
+        if (inputStr.equals("y"))
+        {
+            System.out.println("请输入新的密码");
+            business.setPassword(input.next());
+        }
+
+        int res = dao.updatePassword(business);
+        if (res > 0)
+            System.out.println("修改密码成功");
+        else
+            System.out.println("修改密码失败");
+    }
 }

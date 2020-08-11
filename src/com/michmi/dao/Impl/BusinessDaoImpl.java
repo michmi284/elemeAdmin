@@ -119,43 +119,65 @@ public class BusinessDaoImpl implements BusinessDao
     }
 
     @Override
-    public int removeBusiness(int businessId)
+    public int updatePassword(Business business)
     {
-        // 删除的时候注意需要开启事物
         int result = 0;
-        String sql = "delete from business where businessId = ?";
-
+        String sql = "update business set password = ? where businessId = ? ";
         try
         {
             conn = JDBCUtils.getConnection();
-            // 手动开启事物
-            conn.setAutoCommit(false);
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, businessId);
+            pstmt.setString(1, business.getPassword());
             result = pstmt.executeUpdate();
-            conn.commit();
 
         } catch (SQLException e)
         {
-            // 进入了异常的代码区要给result置为 0
-            result = 0;
-            try
-            {
-                conn.rollback();
-            } catch (SQLException e1)
-            {
-                e1.printStackTrace();
-            }
             e.printStackTrace();
-
-
         } finally
         {
             JDBCUtils.close(rs, pstmt, conn);
         }
-
         return result;
     }
+
+//    @Override
+//    public int removeBusiness(int businessId)
+//    {
+//        // 删除的时候注意需要开启事物
+//        int result = 0;
+//        String sql = "delete from business where businessId = ?";
+//
+//        try
+//        {
+//            conn = JDBCUtils.getConnection();
+//            // 手动开启事物
+//            conn.setAutoCommit(false);
+//            pstmt = conn.prepareStatement(sql);
+//            pstmt.setInt(1, businessId);
+//            result = pstmt.executeUpdate();
+//            conn.commit();
+//
+//        } catch (SQLException e)
+//        {
+//            // 进入了异常的代码区要给result置为 0
+//            result = 0;
+//            try
+//            {
+//                conn.rollback();
+//            } catch (SQLException e1)
+//            {
+//                e1.printStackTrace();
+//            }
+//            e.printStackTrace();
+//
+//
+//        } finally
+//        {
+//            JDBCUtils.close(rs, pstmt, conn);
+//        }
+//
+//        return result;
+//    }
 
     @Override
     public Business getBusinessByBusinessId(Integer businessId)

@@ -1,6 +1,5 @@
 package com.michmi;
 
-
 import com.michmi.domain.Business;
 import com.michmi.view.BusinessView;
 import com.michmi.view.FoodView;
@@ -50,6 +49,7 @@ public class ElmBusiness
                         businessView.updateBusiness(business.getBusinessId());
                         break;
                     case 3:
+                        businessView.updatePassword(business.getBusinessId());
                         break;
                     case 4:
                         foodManage(business.getBusinessId());
@@ -61,22 +61,16 @@ public class ElmBusiness
                         System.out.println("没有这个菜单项");
                         break;
                 }
-
             }
-
-
         } else
         {
             System.out.println("账号或密码有误请重新输入");
         }
-
     }
 
     private static void foodManage(int businessId)
     {
         FoodView foodView = new FoodViewImpl();
-
-
         int menu = 0;
         while (menu != 5)
         {
@@ -113,8 +107,6 @@ public class ElmBusiness
                     System.out.println("没有这个菜单项");
                     break;
             }
-
         }
-
     }
 }

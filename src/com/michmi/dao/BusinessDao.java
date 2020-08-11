@@ -13,11 +13,11 @@ public interface BusinessDao
 
     public Business getBusinessByNameByPass(Integer businessId, String password);
 
-    public int removeBusiness(int businessId);
+    public int updatePassword(Business business);
 
     public Business getBusinessByBusinessId(Integer businessId);
 
-    public int updateBusiness( Business business);
+    public int updateBusiness(Business business);
 
 //    public Business getBusinessByBusinessId(Integer ){}
 
