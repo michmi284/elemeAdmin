@@ -10,13 +10,17 @@ public interface BusinessView
 
     public void saveBusiness();
 
-    //添加商家登录验证的方法
+    public void removeBusiness();
+
+    // 添加一个商家登录验证的方法
     public Business login();
 
-    public void showBusiness(Integer businessId);
+    // 显示商家信息
+    public void showBusinessInfo(Integer businessId);
 
-    public void updateBusiness(Integer businessId);
+    // 修改商家信息
+    public void updateBusinessInfo(Integer businessId);
 
-    public void updatePassword(Integer businessId);
+    public void updateBusinessByPassword(Integer businessId);
 
 }

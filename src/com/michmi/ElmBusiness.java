@@ -43,13 +43,13 @@ public class ElmBusiness
                 switch (menu)
                 {
                     case 1:
-                        businessView.showBusiness(business.getBusinessId());
+                        businessView.showBusinessInfo(business.getBusinessId());
                         break;
                     case 2:
-                        businessView.updateBusiness(business.getBusinessId());
+                        businessView.updateBusinessInfo(business.getBusinessId());
                         break;
                     case 3:
-                        businessView.updatePassword(business.getBusinessId());
+                        businessView.updateBusinessByPassword(business.getBusinessId());
                         break;
                     case 4:
                         foodManage(business.getBusinessId());
@@ -61,16 +61,22 @@ public class ElmBusiness
                         System.out.println("没有这个菜单项");
                         break;
                 }
+
             }
+
+
         } else
         {
             System.out.println("账号或密码有误请重新输入");
         }
+
     }
 
     private static void foodManage(int businessId)
     {
         FoodView foodView = new FoodViewImpl();
+
+
         int menu = 0;
         while (menu != 5)
         {
@@ -85,20 +91,16 @@ public class ElmBusiness
                 case 1:
                     foodView.showFoodList(businessId);
                     break;
-
                 case 2:
                     foodView.saveFood(businessId);
-                    System.out.println("新增食品");
 
                     break;
                 case 3:
                     foodView.updateFood(businessId);
-                    System.out.println("修改食品");
 
                     break;
                 case 4:
                     foodView.removeFood(businessId);
-                    System.out.println("删除食品");
 
                     break;
                 case 5:
@@ -107,6 +109,8 @@ public class ElmBusiness
                     System.out.println("没有这个菜单项");
                     break;
             }
+
         }
+
     }
 }
